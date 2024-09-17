@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const backend = "https://sd-project-backend.vercel.app";
+
 const Signup = () => {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
@@ -11,7 +13,7 @@ const Signup = () => {
 	const handleSignup = async (e) => {
 		e.preventDefault();
 		try {
-			const res = await axios.post("http://localhost:3000/api/auth/signup", {
+			const res = await axios.post(`${backend}/api/auth/signup`, {
 				name,
 				email,
 				password,

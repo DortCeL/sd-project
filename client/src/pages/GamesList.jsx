@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 
+const backend = "https://sd-project-backend.vercel.app";
+
 const GamesList = () => {
 	const [products, setProducts] = useState([]);
 	const [filteredProducts, setFilteredProducts] = useState([]);
@@ -45,7 +47,7 @@ const GamesList = () => {
 			const token = localStorage.getItem("token"); // Get the token from localStorage
 
 			// Fetch user-specific products with the token
-			const response = await axios.get("http://localhost:3000/api/products", {
+			const response = await axios.get(`${backend}/api/products`, {
 				headers: {
 					Authorization: `Bearer ${token}`, // Attach the token in the Authorization header
 				},
@@ -104,15 +106,11 @@ const GamesList = () => {
 		try {
 			const token = localStorage.getItem("token"); // Get the token from localStorage
 
-			const response = await axios.post(
-				"http://localhost:3000/api/products",
-				newProduct,
-				{
-					headers: {
-						Authorization: `Bearer ${token}`, // Attach the token in the Authorization header
-					},
-				}
-			);
+			const response = await axios.post(`${backend}/api/products`, newProduct, {
+				headers: {
+					Authorization: `Bearer ${token}`, // Attach the token in the Authorization header
+				},
+			});
 			fetchProducts(); // Refresh the product list
 			setNewProduct({ title: "", publisher: "", year: 0, price: 0 });
 
@@ -148,7 +146,7 @@ const GamesList = () => {
 		try {
 			const token = localStorage.getItem("token"); // Get the token from localStorage
 
-			await axios.delete(`http://localhost:3000/api/products/${id}`, {
+			await axios.delete(`${backend}/api/products/${id}`, {
 				headers: {
 					Authorization: `Bearer ${token}`, // Attach the token in the Authorization header
 				},
@@ -190,7 +188,7 @@ const GamesList = () => {
 			const token = localStorage.getItem("token"); // Get the token from localStorage
 
 			await axios.put(
-				`http://localhost:3000/api/products/${selectedProduct._id}`,
+				`${backend}/api/products/${selectedProduct._id}`,
 				formData,
 				{
 					headers: {
