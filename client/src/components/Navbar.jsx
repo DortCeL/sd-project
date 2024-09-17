@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-export default function Navbar() {
+export default function Navbar({ username }) {
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 
 	const handleAvatarClick = () => {
@@ -19,7 +19,7 @@ export default function Navbar() {
 
 				<div className='relative'>
 					<div className='flex items-center gap-4'>
-						<span className='text-sm font-medium'>John Doe</span>
+						<span className='text-sm font-medium'>{username}</span>
 						<img
 							src='https://via.placeholder.com/40'
 							alt='User Avatar'

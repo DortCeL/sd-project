@@ -30,11 +30,33 @@ const GamesList = () => {
 		fetchProducts();
 	}, []);
 
+	// const fetchProducts = async () => {
+	// 	try {
+	// 		const response = await axios.get("http://localhost:3000/api/products");
+	// 		setProducts(response.data);
+	// 		setFilteredProducts(response.data); // Initialize filtered products with all products
+	// 	} catch (error) {
+	// 		console.error("Error fetching products:", error);
+	// 	}
+	// };
+
 	const fetchProducts = async () => {
 		try {
-			const response = await axios.get("http://localhost:3000/api/products");
+			const token = localStorage.getItem("token"); // Get the token from localStorage
+
+			// Fetch user-specific products with the token
+			const response = await axios.get("http://localhost:3000/api/products", {
+				headers: {
+					Authorization: `Bearer ${token}`, // Attach the token in the Authorization header
+				},
+			});
+
+			// Log the response for debugging
+			console.log("Fetched products:", response.data);
+
+			// Update the state with fetched products
 			setProducts(response.data);
-			setFilteredProducts(response.data); // Initialize filtered products with all products
+			setFilteredProducts(response.data); // Update the filtered products as well
 		} catch (error) {
 			console.error("Error fetching products:", error);
 		}
@@ -68,20 +90,77 @@ const GamesList = () => {
 	};
 
 	// Add a new product
+	// const handleAddProduct = async () => {
+	// 	try {
+	// 		await axios.post("http://localhost:3000/api/products", newProduct);
+	// 		fetchProducts(); // Refresh the product list
+	// 		setNewProduct({ title: "", publisher: "", year: 0, price: 0 });
+	// 	} catch (error) {
+	// 		console.error("Error adding product:", error);
+	// 	}
+	// };
+
 	const handleAddProduct = async () => {
 		try {
-			await axios.post("http://localhost:3000/api/products", newProduct);
+			const token = localStorage.getItem("token"); // Get the token from localStorage
+
+			const response = await axios.post(
+				"http://localhost:3000/api/products",
+				newProduct,
+				{
+					headers: {
+						Authorization: `Bearer ${token}`, // Attach the token in the Authorization header
+					},
+				}
+			);
 			fetchProducts(); // Refresh the product list
 			setNewProduct({ title: "", publisher: "", year: 0, price: 0 });
+
+			console.log("Product created:", response.data); // The created product
 		} catch (error) {
-			console.error("Error adding product:", error);
+			console.error("Error creating product", error);
 		}
 	};
 
+	// const handleDelete = async (id) => {
+	// 	try {
+	// 		const token = localStorage.getItem("token"); // Get the token from localStorage
+
+	// 		await axios.delete(`http://localhost:3000/api/products/${id}`, {
+	// 			headers: {
+	// 				Authorization: `Bearer ${token}`, // Attach the token in the Authorization header
+	// 			},
+	// 		});
+
+	// 		// Filter out the deleted product from the list
+	// 		setProducts(products.filter((product) => product._id !== id));
+	// 		setFilteredProducts(
+	// 			filteredProducts.filter((product) => product._id !== id)
+	// 		); // Update filtered products if needed
+
+	// 		console.log("Product deleted successfully");
+	// 	} catch (error) {
+	// 		console.error("Error deleting product:", error);
+	// 	}
+	// };
+
 	const handleDelete = async (id) => {
 		try {
-			await axios.delete(`http://localhost:3000/api/products/${id}`);
+			const token = localStorage.getItem("token"); // Get the token from localStorage
+
+			await axios.delete(`http://localhost:3000/api/products/${id}`, {
+				headers: {
+					Authorization: `Bearer ${token}`, // Attach the token in the Authorization header
+				},
+			});
+
+			// Filter out the deleted product from the list
 			setProducts(products.filter((product) => product._id !== id));
+			setFilteredProducts(
+				filteredProducts.filter((product) => product._id !== id)
+			); // Update filtered products if needed
+
+			console.log("Product deleted successfully");
 		} catch (error) {
 			console.error("Error deleting product:", error);
 		}
@@ -93,14 +172,37 @@ const GamesList = () => {
 		setEditModalOpen(true);
 	};
 
+	// const handleUpdate = async () => {
+	// 	try {
+	// 		await axios.put(
+	// 			`http://localhost:3000/api/products/${selectedProduct._id}`,
+	// 			formData
+	// 		);
+	// 		fetchProducts(); // Refresh the product list
+	// 		setEditModalOpen(false); // Close modal
+	// 	} catch (error) {
+	// 		console.error("Error updating product:", error);
+	// 	}
+	// };
+
 	const handleUpdate = async () => {
 		try {
+			const token = localStorage.getItem("token"); // Get the token from localStorage
+
 			await axios.put(
 				`http://localhost:3000/api/products/${selectedProduct._id}`,
-				formData
+				formData,
+				{
+					headers: {
+						Authorization: `Bearer ${token}`, // Attach the token in the Authorization header
+					},
+				}
 			);
+
 			fetchProducts(); // Refresh the product list
 			setEditModalOpen(false); // Close modal
+
+			console.log("Product updated successfully");
 		} catch (error) {
 			console.error("Error updating product:", error);
 		}

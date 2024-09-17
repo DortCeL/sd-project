@@ -23,6 +23,12 @@ const ProductSchema = mongoose.Schema(
 			type: String,
 			required: [true, "Please enter company name"],
 		},
+
+		user: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "User", // Reference to the User model
+			required: true,
+		},
 	},
 	{
 		timestamps: true,
