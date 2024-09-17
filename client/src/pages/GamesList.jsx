@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
 
 const backend = "https://sd-project-backend.vercel.app";
 
 const GamesList = () => {
+	const navigate = useNavigate();
+
+	// Function to handle row click
+	const handleRowClick = (product) => {
+		navigate("/details", { state: { product } });
+	};
+
 	const [products, setProducts] = useState([]);
 	const [filteredProducts, setFilteredProducts] = useState([]);
 	const [searchQuery, setSearchQuery] = useState({
@@ -293,7 +301,11 @@ const GamesList = () => {
 					</thead>
 					<tbody>
 						{filteredProducts.map((product) => (
-							<tr key={product._id} className='text-center'>
+							<tr
+								key={product._id}
+								className='text-center cursor-pointer'
+								onClick={() => handleRowClick(product)}
+							>
 								<td className='border px-4 py-2'>{product.title}</td>
 								<td className='border px-4 py-2'>{product.publisher}</td>
 								<td className='border px-4 py-2'>{product.year}</td>
