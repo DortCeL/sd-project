@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const backend = "https://sd-project-backend.vercel.app";
@@ -71,9 +71,9 @@ const Signup = () => {
 				</form>
 				<p className='text-center text-sm mt-4'>
 					Already have an account?{" "}
-					<a href='/login' className='text-blue-500 hover:underline'>
+					<Link to='/login' className='text-blue-500 hover:underline'>
 						Log in here
-					</a>
+					</Link>
 				</p>
 			</div>
 		</div>
