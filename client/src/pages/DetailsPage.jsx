@@ -6,14 +6,17 @@ const DetailsPage = () => {
 	const navigate = useNavigate();
 
 	if (!product) {
-		return <p>No product selected</p>;
+		return <p>No game selected</p>;
 	}
 
 	return (
 		<div className='container mx-auto p-4'>
-			<h1 className='text-3xl font-bold mb-6 text-center'>Product Details</h1>
+			<h1 className='text-3xl font-bold mb-6 text-center'>Game Details</h1>
 			<div className='border p-6 rounded-lg shadow-lg'>
-				<h2 className='text-2xl font-bold mb-4'>{product.title}</h2>
+				<h2 className='text-2xl font-bold mb-4'>
+					<strong>Game Title:</strong>
+					{product.title}
+				</h2>
 				<p className='mb-2'>
 					<strong>Publisher:</strong> {product.publisher}
 				</p>
