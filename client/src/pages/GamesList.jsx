@@ -301,15 +301,31 @@ const GamesList = () => {
 					</thead>
 					<tbody>
 						{filteredProducts.map((product) => (
-							<tr
-								key={product._id}
-								className='text-center cursor-pointer'
-								onClick={() => handleRowClick(product)}
-							>
-								<td className='border px-4 py-2'>{product.title}</td>
-								<td className='border px-4 py-2'>{product.publisher}</td>
-								<td className='border px-4 py-2'>{product.year}</td>
-								<td className='border px-4 py-2'>${product.price}</td>
+							<tr key={product._id} className='text-center cursor-pointer'>
+								<td
+									className='border px-4 py-2'
+									onClick={() => handleRowClick(product)}
+								>
+									{product.title}
+								</td>
+								<td
+									className='border px-4 py-2'
+									onClick={() => handleRowClick(product)}
+								>
+									{product.publisher}
+								</td>
+								<td
+									className='border px-4 py-2'
+									onClick={() => handleRowClick(product)}
+								>
+									{product.year}
+								</td>
+								<td
+									className='border px-4 py-2'
+									onClick={() => handleRowClick(product)}
+								>
+									${product.price}
+								</td>
 								<td className='border px-4 py-2 space-x-2'>
 									<button
 										onClick={() => handleEdit(product)}
